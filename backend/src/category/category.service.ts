@@ -25,7 +25,7 @@ export class CategoryService {
     if(res.length>0){
       return res;
     }else{
-      return {message:"No category found"}
+      return false;
     }
   }
 
@@ -34,7 +34,7 @@ export class CategoryService {
     if(res!=null){
       return res;
     }else{
-      return {message:"No category found"};
+      return false;
     }
   }
 

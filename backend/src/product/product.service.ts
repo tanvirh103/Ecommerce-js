@@ -29,7 +29,7 @@ export class ProductService {
     if(res.length>0){
       return res;
     }else{
-      return {message:"No Product Found"}
+      return false
     }
   }
 
@@ -38,7 +38,7 @@ export class ProductService {
     if(res!=null){
       return res;
     }else{
-      return{message:"No Product found"} ;
+      return false
     }
   }
 

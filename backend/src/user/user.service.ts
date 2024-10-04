@@ -8,23 +8,23 @@ import { UpdateUserDTO } from './dto/update.user.dto';
 @Injectable()
 export class UserService {
     constructor(@InjectRepository(User) private readonly UserRepo:Repository<User>){}
-    async CreateUser(userdto:UserDTO):Promise<any>{
-        if(userdto.Password==userdto.CPassword){
-            const user=new User();
-            user.UserName=userdto.UserName;
-            user.Email=userdto.Email;
-            user.Phone=userdto.Phone;
-            user.Password=userdto.Password;
-            user.Role=userdto.Role;
-            const res=await this.UserRepo.save(user);
-            if(res){
-                return true;
+   async CreateUser(userdto:UserDTO):Promise<boolean>{
+            if(userdto.Password==userdto.CPassword){
+                const user=new User();
+                user.UserName=userdto.UserName;
+                user.Email=userdto.Email;
+                user.Phone=userdto.Phone;
+                user.Password=userdto.Password;
+                user.Role=userdto.Role;
+                const res=await this.UserRepo.save(user);
+                if(res){
+                    return true;
+                }else{
+                    return false;
+                }
             }else{
                 return false;
             }
-        }else{
-            return {message:"Password did not match"}
-        }
     }
 
     async find(id:number):Promise<any>{
@@ -32,14 +32,16 @@ export class UserService {
         if(res.length>0){
          return res;   
         }else{
-            return {message:"No User found"}
+            return false;
         }
     }
 
-    async findAll():Promise<Array<User>>{
+    async findAll():Promise<any>{
         const res=await this.UserRepo.find();
         if(res.length>0){
             return res;
+        }else{
+            return false;
         }
     }
     

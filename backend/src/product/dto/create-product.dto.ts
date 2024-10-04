@@ -1,16 +1,18 @@
-import { isAlpha, IsAlpha, IsEmpty } from "class-validator";
+import {IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateProductDto {
-    @IsEmpty({message:"Category Id should be filled"})
+    @IsNotEmpty({message:"Category Id should be filled"})
     CategoryId:number;
-    @IsEmpty({message:"Product Name should be filled"})
+    @IsNotEmpty({message:"Product Name should be filled"})
+    @IsString()
     ProductName:string;
-    @IsEmpty({message:"Product Description should be filled"})
+    @IsNotEmpty({message:"Product Description should be filled"})
+    @IsString()
     ProductDes:string;
-    @IsEmpty({message:"Product Price should be filled"})
-    @IsAlpha()
+    @IsNotEmpty({message:"Product Price should be filled"})
+    //@IsNumber()
     ProductPrice:number;
-    @IsEmpty({message:"Product Quantity should be filled"})
-    @IsAlpha()
+    @IsNotEmpty({message:"Product Quantity should be filled"})
+    //@IsNumber()
     ProductQuantity:number;
 }

@@ -1,33 +1,58 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDTO } from './dto/user.dto';
 import { UpdateUserDTO } from './dto/update.user.dto';
-
+@UsePipes(new ValidationPipe({transform:true}))
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Post()
-  CreateUser(@Body() c:UserDTO){
-    const res=this.userService.CreateUser(c);
-    if(res){
-      return {message:"User added"}
-    }else return {message:"Something went wrong"}
+  async CreateUser(@Body() c:UserDTO){
+    try{
+      const res=await this.userService.CreateUser(c);
+      console.log(res)
+      if(res===true){
+        return {message:"User added"}
+      }else return {message:"Something went wrong"}
+    }catch(e){
+      console.log(e);
+    }
   }
   @Get(':id')
-  Find(@Param('id')id:number){
-    return this.userService.find(id);
+  async Find(@Param('id')id:number){
+    const res=await this.userService.find(id);
+    if(res===false){
+      return {message:"No User found"}
+    }else{
+      return res;
+    }
   }
   @Get()
-  FindAll(){
-    return this.userService.findAll();
+  async FindAll(){
+    const res=await this.userService.findAll();
+    if(res===false){
+      return {message:"No User Found"};
+    }else{
+      return res;
+    }
   }
   @Delete(':id')
-  DeleteUser(@Param('id') id:number){
-    return this.userService.deleteUser(id);
+  async DeleteUser(@Param('id') id:number){
+    const res=await this.userService.deleteUser(id);
+    if(res===true){
+      return {message:"User Deleted"}
+    }else{
+      return {message:"Something is wrong"}
+    }
   }
   @Patch(':id')
-  UpdateUser(@Param('id') id:number,@Body() update:UpdateUserDTO){
-    return this.userService.update(id,update);
+  async UpdateUser(@Param('id') id:number,@Body() update:UpdateUserDTO){
+    const res=await this.userService.update(id,update);
+    if(res===true){
+      return{message:"User info Updated"}
+    }else{
+      return{message:"Something is wrong"}
+    }
   }
   
 }
