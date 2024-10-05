@@ -9,50 +9,27 @@ export class UserController {
   @Post()
   async CreateUser(@Body() c:UserDTO){
     try{
-      const res=await this.userService.CreateUser(c);
-      console.log(res)
-      if(res===true){
-        return {message:"User added"}
-      }else return {message:"Something went wrong"}
+      return await this.userService.CreateUser(c);
     }catch(e){
       console.log(e);
     }
   }
   @Get(':id')
   async Find(@Param('id')id:number){
-    const res=await this.userService.find(id);
-    if(res===false){
-      return {message:"No User found"}
-    }else{
-      return res;
-    }
+    return await this.userService.find(id);
   }
   @Get()
   async FindAll(){
-    const res=await this.userService.findAll();
-    if(res===false){
-      return {message:"No User Found"};
-    }else{
-      return res;
-    }
+    return await this.userService.findAll();
+    
   }
   @Delete(':id')
   async DeleteUser(@Param('id') id:number){
-    const res=await this.userService.deleteUser(id);
-    if(res===true){
-      return {message:"User Deleted"}
-    }else{
-      return {message:"Something is wrong"}
-    }
+    return await this.userService.deleteUser(id);
   }
   @Patch(':id')
   async UpdateUser(@Param('id') id:number,@Body() update:UpdateUserDTO){
-    const res=await this.userService.update(id,update);
-    if(res===true){
-      return{message:"User info Updated"}
-    }else{
-      return{message:"Something is wrong"}
-    }
+    return await this.userService.update(id,update);
   }
   
 }

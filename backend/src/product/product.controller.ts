@@ -10,47 +10,26 @@ export class ProductController {
   @Post()
   async create(@Body() createProductDto: CreateProductDto) {
     try{
-      const res=await this.productService.create(createProductDto);
-    if(res===true){
-      return {message:"Product Added"}
-    }else{
-      return {message:"Product Creation failed"}
-    }
+      return await this.productService.create(createProductDto);
     }catch(err){
       console.log(err);
-    }
-    
+    } 
   }
 
   @Get()
   async findAll() {
-    const res=await this.productService.findAll();
-    if(res===false){
-      return{message:"No product found"}
-    }else{
-      return res;
-    }
+     return await this.productService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    const res=await this.productService.findOne(id);
-    if(res===false){
-      return{message:"No Product found"}
-    }else{
-      return res;
-    }
+    return await this.productService.findOne(id); 
   }
 
   @Patch(':id')
   async update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto) {
     try{
-      const res=await this.productService.update(id, updateProductDto);
-    if(res===true){
-      return {message:"Product Updated"}
-    }else{
-      return {message:"Product Update failed"}
-    }
+      return await this.productService.update(id, updateProductDto);
     }catch(e){
       console.log(e);
     }
@@ -59,11 +38,6 @@ export class ProductController {
 
   @Delete(':id')
   async remove(@Param('id') id: number) {
-    const res=await this.productService.remove(id);
-    if(res===true){
-      return {message:"Product Deleted"}
-    }else{
-      return {message:"Product Deletion failed"}
-    }
+     return await this.productService.remove(id);
   }
 }
