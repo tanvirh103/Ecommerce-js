@@ -3,7 +3,6 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
-
 export default function Home() {
   const[Email,SetEmail]=useState("");
   const[Password,SetPassword]=useState("");
@@ -40,6 +39,7 @@ export default function Home() {
       const res=await axios.post("http://localhost:3001/auth",formData,{headers: {'Content-Type': 'application/json'}});
       console.log(res.data);
       if(res.data===true){
+        localStorage.setItem('Session',"1");
         router.push("/User/Dashboard");
       }
     }catch(e){

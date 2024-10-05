@@ -4,8 +4,11 @@ import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
     const router = useRouter();
-
-    const handleLogout = () => {  
+    if(!localStorage.getItem('Session')){
+        router.push("/")
+    }
+    const handleLogout = () => {
+        localStorage.removeItem("Session");
         router.push("/");
     };
     return (
