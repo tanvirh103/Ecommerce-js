@@ -7,11 +7,6 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post()
   async login(@Body()l:AuthDTO){
-    const res=await this.authService.login(l);
-    if(res===true){
-      return {message:"User Logged In"}
-    }else{
-      return {message:"Login failed"}
-    }
+    return await this.authService.login(l);
   }
 }
