@@ -9,51 +9,26 @@ export class CategoryController {
 
   @Post()
   async create(@Body() createCategoryDto: CreateCategoryDto) {
-    const res=await this.categoryService.create(createCategoryDto);
-    if(res===true){
-      return {message:"Category Added"}
-    }else{
-      return {message:"Category creation failed"}
-    }
+    return await this.categoryService.create(createCategoryDto);
   }
 
   @Get()
   async findAll() {
-    const res=await this.categoryService.findAll();
-    if(res===false){
-      return {message:"No Category Found"}
-    }else{
-      return res;
-    }
+    return await this.categoryService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    const res=await this.categoryService.findOne(id);
-    if(res===false){
-      return {message:"No Category found"}
-    }else{
-      return res;
-    }
+    return await this.categoryService.findOne(id);
   }
 
   @Patch(':id')
   async update(@Param('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
-    const res=await this.categoryService.update(id, updateCategoryDto);
-    if(res===true){
-      return {message:"Category Updated"}
-    }else{
-      return {message:"Category Update failed"}
-    }
+    return await this.categoryService.update(id, updateCategoryDto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: number) {
-    const res=await this.categoryService.remove(id);
-    if(res===true){
-      return {message:"Category Deleted"}
-    }else{
-      return {message:"Category deletion failed"}
-    }
+    return await this.categoryService.remove(id);
   }
 }
